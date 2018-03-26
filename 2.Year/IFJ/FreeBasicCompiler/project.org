@@ -1,0 +1,143 @@
+* Projekt IFJ 2017
+** Priecinkova struktura
+#+BEGIN_QUOTE
+- + rozdeleni
+  |
+  + projekt.org
+  |
+  + zadanie/
+  |
+  + test-dir
+  |
+  + src/ + *.c
+         |
+         + *.h
+	 |
+         + Makefile
+	 |
+         + test/
+#+END_QUOTE
+
+** Schema prekladaca
+*** Skener
+**** Konecny automat
+- Mal by byt naimplementovany podla documentacie!
+- Klucove slova mozu byt kontrolovane semanticky? pretoze to vedie k moc zlozitemu DKA
+*** Parser
++ Syntakticka analyza ci su tokeny spravne poskladane za sebou
++ bezkontextova gramatika
++ LL-gramatika - prediktivna syntakticka analyza hore dole alebo funkcie *rekurzivneho zostupu*
++ Semanticka analyza, kompatibilita datovych typov, deklaracie premennych, tabulka symbolov
++ predencny analyzator - analyza vyrazov
+*** Generator kodu
+- prechod AST -> na instrukcie
+*** Interpret
+
+** Syntakticka analyza
+Suhra oboch pristupov
+Treba si davat pozor aby jednotlive pristupy nebrali tokeny druheho pristupu
+#+BEGIN_SRC c
+  if a > 5 Then ..
+  ^^ ***** ^^^^
+  a = funkce()
+  ^^^^^^^^^^^^
+  a = a - 1
+  ^^^ *****
+
+  # ^ = RS | * = PSA
+#+END_SRC
+*** Precedencna syntakticka analyza
+Analyzuje vyrazy
+**** Ukoncenie PSA
+#+BEGIN_SRC c
+  a = a - 1 EOL
+  ^^^ *****
+  if a > 5 Then ..
+  ^^ *****
+#+END_SRC
+*** Rekurzivny zostup
+Analyzuje zbytok kodu
+
+** Tabulky symbolov
+Funkcie a premmene maju rozdielne tabulky
+*** Funkcie(vstavane + uzivatelske)
+Vsetky funkcie su globalne
+*** Premenne
+Vsetky premmene su lokalne
+Kazda funckia ma svoju tabulku symbolov localne kde sa vyskytuju parametre a lokalne premmene
+
+*** Data
+**** Informacie o premmenych
+***** Datovy typ
+***** Meno
+***** Identifikator(KLUC)
+***** Inicializacna hodnota(NEPOVINNA/IMPLICITNA)
+**** Informacie o funkciach
+***** Navratovy typ
+***** Parametre
+***** Tabulka symbolov
+***** Zoznam parametrov
+***** Odkaz na AST
+***** Navestie funckcie
+
+*** Generovanie kodu
+Hlavicka
+**** Ciastocne case sensitive(operandy)
+**** Volne pravidla pre identifikatory(mozu obsahovat psycho znaky)
+**** Operandy sa oddeluju bielym znakom a nie ciarkou
+**** Dynamicky typovany jazyk(typ je dany hodnotou co je priradena premmenej)
+
+** Main
+*** Spustenie bez agumentov
+Ak je prekladac spusteny bez argumentov, chova sa podla zadanie
+*** Volitelny argument, subor so zdrojovym kodom
+Ak je prekladac spusteny s jednym argumentom a to(=> <filename>) tak nacita program zo suboru
+Tento pristup je vhodny pri testovani
+
+** Testovanie
+Na testovanie pouzijeme [[https://github.com/google/googletest][google test]]
+*** Make ciele
+**** test-lex
+**** test-syntax
+**** test-generator
+**** test-error
+#+BEGIN_QUOTE
+1 - chyba v programu v ramci lexikalnej analyzy (chybna struktura aktualneho lexemu).
+2 - chyba v programu v ramci syntaktickej analyzy (chybna syntax programu).
+3 - samanticka chyba v programu – nedefinovaná funkce/premenna, pokus o redefiniciu funkcie/promennej, atd...
+4 - semanticka chyba typovej kompatibility v aritmetickych, retazcovych a relacnych vyrazoch, pripadne zly pocet alebo typ parametrov pri volani funkcie
+6 - ostatne semanticke chyby.
+99 - interna chyba prekladaca tj. neovplyvnena vstupnim programom (napr. chyba alokacie pamati, atd.). 
+#+END_QUOTE
+Test navratovych kodov programu, podla zadania
+*** Jeden ciel pre vsetky testy
+**** Postupne spusti vsetky testy?
+
+** Datove struktury
+*** Token
+| popis | typ |
+|-------+-----|
+|       |     |
+
+
+** Clenovia timu
+*** Matej Kastak         <xkasta02>
+*** Jozef Drab           <xdrabj00>
+*** Christian Farkas     <xfarka06>
+*** Viktoria Cervenanska <xcerve23>
+
+** Chyby
+*** TODO spravne hlavicky suborov Kastak
+*** TODO spravit testy
+**** TODO testy identifikatov
+*** TODO show_error int premmena?
+*** TODO ma show_error ukoncovat program? syntakticka by este mohla najst dalsie chyby
+*** TODO dohodnut sa na token_integer alebo token_int
+*** TODO IFJ17 je case-insensitive
+*** TODO upravit komentare podla zadania
+*** TODO token_free() - funkcia na vymazanie tokenov
+*** TODO VHODNE debugovacie vypisy
+*** TODO kontrola mallocov
+*** TODO pridat vsetky chyby do issues na github
+*** TODO napisat christianovy ze by ich mohol zacat opravovat a ja budem kontrolovat
+*** TODO skontrolovat KDA
