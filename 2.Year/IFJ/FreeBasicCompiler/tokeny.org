@@ -1,0 +1,72 @@
+* Tokeny
+
+** Zoznam tokenov
+Zoznam tokenov ktore lexikalna analyza rozlisuje.
+*** Literaly
+Token char vo FreeBasic neexistuje!
+- token_integer_literal :: Cele kladne, nezaporne cislo.
+- token_floatgpoint_literal :: Desatinne cislo, moze byt zapisane aj v exponencialnom tvare.
+- token_string_literal :: Retazcovy literal, zacina !, a moze obsahovat escaped sequences.
+*** Klucove slova
+Klucove slova jazyka pouzite hlavne na vytvaranie konstrukcii.
+- token_as
+- token_asc
+- token_declare
+- token_dim :: deklaracia premmennych
+- token_do
+- token_double
+- token_else
+- token_end
+- token_chr :: funckcia ktora vracia znak s danou ordinalnou hodnotou
+- token_function
+- token_if
+- token_input
+- token_integer
+- token_length
+- token_loop
+- token_print
+- token_return
+- token_scope
+- token_string
+- token_substr
+- token_then
+- token_while
+*** Rezervovane klucove slova
+- token_and
+- token_boolean
+- token_continue
+- token_elseif
+- token_exit
+- token_false
+- token_for
+- token_next
+- token_not
+- token_or
+- token_shared
+- token_static
+- token_true
+*** Operatory porovnavacie
+- token_lt :: <
+- token_gt :: >
+- token_le :: <=
+- token_ge :: >=
+- token_ne :: <>
+- token_eq :: =
+*** Operatory aritmeticke
+- token_add :: +
+- token_sub :: -
+- token_mul :: *
+- token_div_int :: /
+- token_div_double :: \
+**** Rozsirenie
+- token_add_eq :: +=
+- token_sub_eq :: -=
+- token_mul_eq :: *=
+- token_div_int_eq :: /=
+- token_div_double_eq :: \=
+*** Riadiace tokeny
+- token_eol :: '\n' znak koncu riadku
+- token_eof :: EOF znak koncu suboru
+- token_comma :: ciarka rozdelujuca parametre funkcie
+- token_semicolon :: bodkociarka, pouzita na konci print
+- token_id :: identifikator
