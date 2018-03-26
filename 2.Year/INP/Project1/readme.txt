@@ -1,0 +1,1 @@
+hodnotenie: 10b/10b
