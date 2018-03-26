@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
             }
             if ((argv[1][1])=='r')  //ak argument je "-r" preved funkciu
             {
-                argument_r();       //zavolaj funkciu
+                argument_r();       //zavolaj funkciu 
             }
             if(((argv[1][1])!='x') && ((argv[1][1])!='r')) fprintf(stderr,"CHYBA, NEKOREKTNY ARGUMENT"); //ak argument sa nerovna "-r"...
                                                                                                          // alebo "-x" vypis chybu
