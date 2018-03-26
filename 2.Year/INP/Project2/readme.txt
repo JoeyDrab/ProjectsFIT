@@ -1,0 +1,1 @@
+hodnotenie: 11b/23b
