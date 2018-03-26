@@ -1,0 +1,13 @@
+*~
+*.orig
+*.o
+
+.DS_Store
+
+GPATH
+GRTAGS
+GTAGS
+/src/test-psa
+/src/test/googletest/
+*.a
+/src/test/symtable-test/symtable-test
