@@ -1,0 +1,64 @@
+Popis:
+ZADÁNÍ:
+Vašim úkolem je:
+[1] Seznamte se s kostrami kódù pro programování klientskıch a serverovıch síovıch aplikací (pøednáška tøetí) 
+	za pouití BSD socketù. Navrhnìte vlastní aplikaèní protokol realizující pøenos souboru a relevantní informace 
+	k projektu uveïte v dokumentaci. (8 bodù)
+[2] Naprogramujte jak klientskou tak serverovou aplikaci v C/C++ realizující ètení/zápis souborù z/na server. (12 bodù)
+
+KONVENCE ODEVZDÁVANÉHO ZIP ARCHIVU xlogin00.zip
+dokumentace.pdf - vıstupy zadání [1]
+readme - základní informace, pøípadná omezení projektu
+Makefile
+*.c, *.cpp, *.cc, *.h - zdrojové a hlavièkové soubory vıstupù zadání [2]
+Ad [1]
+Navrhìte vlastní aplikaèní protokol, kterımi poté spolu budou komunikovat klient a server z bodu [2] tohoto zadání. 
+Inspirovat se mùete napøíklad vımìnou zpráv protokolù TFTP èi FTP.
+
+V dobré dokumentaci se oèekává následující: titulní strana, obsah, logické strukturování textu, vıcuc relevantních 
+informací z nastudované literatury, popis aplikaèního protokolu formou koneèného automatu, popis zajímavìjších pasáí implementace, 
+demonstrace èinnosti implementovanıch aplikací, normovaná bibliografie.
+
+Ad [2]
+Umístìní souborù  na stranì serveru je v aktuálním adresáøi, ve kterém se nachází server. Spuštìní klienta pøedpokládá 
+provedení pouze jedné operace a to uloení nebo pøeètení souboru se zadanım jménem. Komunikace mezi serverem a klientem bude schopna 
+se vypoøádat se ztrátami paketù (a to buï na aplikaèní, nebo transportní vrstvì).
+
+Konvence jména klientské aplikace a jejích povinnıch vstupních parametrù:
+./ipk-client -h host -p port [-r|-w] file
+host (IP adresa nebo fully-qualified DNS name) identifikace serveru jakoto koncového bodu komunikace klienta;
+port (èíslo) cílové èíslo portu;
+-r znaèí, e klient bude ze serveru soubor èíst;
+-w znaèí, e klient bude na server soubor zapisovat;
+file (cesta) urèuje cestu k souboru, se kterım se bude manipulovat (buï se soubor odkazovanı cestou uploadne do pracovního adresáøe 
+serveru, nebo se obsah souboru stejného jména v pracovním adresáøi serveru downloadne na místo specifikované cestou).
+napø.
+
+./ipk-client -h eva.fit.vutbr.cz -p 55555 -r myfile.xml
+Konvence jména serverové aplikace a jejích povinnıch vstupních parametrù:
+./ipk-server -p port                     
+port (èíslo) èíslo portu, na kterém server naslouchá na pøipojení od klientù.
+napø.
+
+./ipk-server -p 55555 
+
+DOPORUÈENÍ
+
+Vısledky vaší implementace by mìly bıt co moná nejvíce multiplatformní mezi OS zaloenımi na unixu, ovšem samotné pøeloení projektu a 
+funkènost vaší aplikace budou testovány na refernèním http://nes.fit.vutbr.cz/isa/ISA2015.ova pro pøedmìt ISA, kterıto bude slouit jako 
+virtuální mašinka s pravdìpodobnì jedním síovım rozhraním.
+Všechny implementované programy by mìly bıt pouitelné a øádnì komentované. Pokud u pøejímáte zdrojové kódy z rùznıch tutoriálù èi pøíkladù z 
+Internetu (ne mezi sebou pod hrozbou ortelu disciplinární komise), tak je POVINNÉ správnì vyznaèit tyto sekce a jejich autory dle 
+licenèních podmínek, kterımi se distribuce danıch zdrojovıch kódù øídí. V pøípadì nedodrení bude na projekt nahlíeno jako na plagiát!
+Pro snadné parsování vstupních argumentù se doporuèuje pouít funkci getopt().
+Ukonèení serverové aplikace z bodu [2] bude vázáno na SIGINT signál (tedy Ctrl+C).
+Projekt bude opravován ruènì. Poèítejte tedy s nejzazším monım termínem oprav a reklamací urèenıch garantem pøedmìtu.
+Vısledky vaší implementace by mìly bıt co moná nejvíce multiplatformní mezi OS zaloenımi na unixu (dbejte na to zejména pøi vytváøení Makefile).
+Do souboru Readme uveïte pøípadná omezení funkcionality vašeho projektu - na dokumentovanou chybu se nahlíí v lepším svìtle ne na nedokumentovanou!
+Jen pro pøedstavu je mé vlastní ošklivé øešení projektu na cca 300 øádkù zdrojového kódu (klient i server dohromady).
+LITERATURA:
+
+O. Ryšavı, J. Ráb, IPK - BSD schránky - 3. pøednáška
+K. Sollins, The TFTP Protocol (revision 2), https://tools.ietf.org/html/rfc1350
+J. Postel, J. Reynolds, FILE TRANSFER PROTOCOL (FTP),https://tools.ietf.org/html/rfc959
+P. Grygárek, Softwarová rozhraní systémù UNIX pro pøístup k síovım slubám, http://www.cs.vsb.cz/grygarek/LAN/sockets.html
